@@ -1,20 +1,13 @@
 const dnaUtil = require( '../../util/dna')
 
 
-async function mutation(dna: [string], callback) {
+async function mutation(dna: [string]) {
   if (!await dnaUtil.isNitrogenousBase()) {
     throw 'Is not nitrogenous base';
   }
   const hasMutation = await dnaUtil.hasMutation(dna)
-
-  if(callback) {
-    return callback({
-      hasMutation
-    })
-  } else {
-    return {
-      hasMutation
-    }
+  return {
+    hasMutation
   }
 }
 

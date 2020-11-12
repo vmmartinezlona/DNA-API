@@ -88,7 +88,6 @@ function checkDiagonalSecuencesDown(dna: [string], reg: RegExp) {
 }
 
 async function saveToDatabase(dna: [string], hasMutation: boolean) {
-  const id = uuidv4()
   const db = admin.database()
   const ref = db.ref('secuences')
   var secuencesRef = ref.child(uuidv4());
@@ -98,8 +97,16 @@ async function saveToDatabase(dna: [string], hasMutation: boolean) {
   });
 }
 
+async function listSecuencesInDatabase() {
+  const db = admin.database()
+  const ref = db.ref('secuences')
+  const snapshot = await ref.once('value')
+  return snapshot.val()
+}
+
 module.exports = {
   isNitrogenousBase,
   hasMutation,
-  saveToDatabase
+  saveToDatabase,
+  listSecuencesInDatabase
 }

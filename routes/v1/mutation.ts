@@ -3,6 +3,6 @@ const router = express.Router()
 
 const dnaController = require('../../controllers/services/dna')
 
-router.post('/', dnaController.hasMutation)
+router.post('/mutation', dnaController.secuenceHasMutation)
 
 export default router

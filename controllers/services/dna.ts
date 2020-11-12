@@ -1,6 +1,6 @@
 const DNAController = require('../assistant/dna')
 
-async function hasMutation (req, res) {
+async function secuenceHasMutation (req, res) {
   const secuence = eval(req.body.secuence)
   console.log(secuence)
   try {
@@ -13,5 +13,5 @@ async function hasMutation (req, res) {
 }
 
 module.exports = {
-  hasMutation
+  secuenceHasMutation
 }

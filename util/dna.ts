@@ -1,3 +1,6 @@
+const admin = require('firebase-admin')
+const { v4: uuidv4 } = require('uuid');
+
 async function isNitrogenousBase(dna: [string]) {
   const reg = new RegExp("^[AaTtCcGg]+$");
   return dna.every(e => reg.test(e))
@@ -84,7 +87,19 @@ function checkDiagonalSecuencesDown(dna: [string], reg: RegExp) {
   return false
 }
 
+async function saveToDatabase(dna: [string], hasMutation: boolean) {
+  const id = uuidv4()
+  const db = admin.database()
+  const ref = db.ref('secuences')
+  var secuencesRef = ref.child(uuidv4());
+  secuencesRef.set({
+    secuence: JSON.stringify(dna),
+    hasMutation
+  });
+}
+
 module.exports = {
   isNitrogenousBase,
-  hasMutation
+  hasMutation,
+  saveToDatabase
 }

@@ -1,9 +1,24 @@
-'use strict'
-
 import ApiRouter from './routes/v1'
-var express = require('express')
-var compression = require('compression')
+const express = require('express')
+const compression = require('compression')
 const bodyParser = require('body-parser')
+const admin = require('firebase-admin')
+const configuration = require('./configuration/firebase')
+const serviceAccount = require('./configuration/firebase-adminsdk.json')
+
+// Initialize the app with a service account, granting admin privileges
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: configuration.firebaseConfig.databaseURL
+})
+
+// As an admin, the app has access to read and write all data, regardless of Security Rules
+var db = admin.database()
+var ref = db.ref('restricted_access/secret_document')
+ref.once('value', function (snapshot) {
+  console.log(snapshot.val())
+})
+
 const app = express()
 app.use(compression())
 

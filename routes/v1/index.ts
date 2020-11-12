@@ -4,6 +4,6 @@ const express = require('express')
 const ApiRouter = express.Router()
 
 ApiRouter
-  .use('/mutation', mutationRoutes)
+  .use('/dna', mutationRoutes)
 
 export default ApiRouter
